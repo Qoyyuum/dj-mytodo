@@ -29,4 +29,6 @@ Then the usual Django commands:
     py manage.py migrate
     py manage.py runserver
 
+Then navigate to localhost:8000/tasks
+
 Enjoy!
