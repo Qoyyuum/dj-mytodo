@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Task Confirm Delete{% endblock %}
+
+{% block style %}
+#confirm-delete {
+    background-color: #e53935; /* red */
+    text-decoration: none;
+    border-color: #b71c1c; /* dark red */
+}
+{% endblock %}
+{% block content %}
+<h2>Delete Task</h2>
+<p>Are you sure you want to delete the task: <strong>{{ task.title }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" id="confirm-delete">Yes, delete</button>
+    <a href="{% url 'mytodo:task_detail' task.pk %}" role="button" class="secondary">Cancel</a>
+</form>
+{% endblock %}

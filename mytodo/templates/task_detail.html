@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Detail | {{task.title}} {% endblock %}
+
+{% block style %}
+a.delete {
+    background-color: #e53935; /* red */
+    text-decoration: none;
+    border-color: #b71c1c; /* dark red */
+}
+{% endblock %}
+
+{% block content %}
+<h1>{{task}}</h1>
+<article>
+    <header><strong>Title:</strong> {{ task.title }}</header>
+    <strong>Description:</strong> {{ task.description }}
+    <hr />
+    <small>Created at: {{ task.created_at }}</small>
+    <br />
+    <small>Updated at: {{ task.updated_at }}</small>
+    <footer>
+        <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button">Edit</a>
+        <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button">Trash</a>
+        <a href="{% url 'mytodo:task_list' %}" class="primary" role="button">Back to Task List</a>
+</article>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Task List{% endblock %}
+
+{% block style %}
+div.card {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+a.delete {
+    background-color: #e53935; /* red */
+    text-decoration: none;
+    border-color: #b71c1c; /* dark red */
+}
+a.complete {
+    background-color: #43a047; /* green */
+    text-decoration: none;
+    border-color: #1b5e20; /* dark green */
+}
+a.incomplete {
+    background-color: #fbc02d; /* yellow */
+    text-decoration: none;
+    border-color: #f57f17; /* dark yellow */
+}
+{% endblock %}
+
+{% block content %}
+{% if tasks %}
+    <header>{{ tasks|length }} tasks found:</header>
+    <main>
+        <div class="grid">
+            {% for task in tasks %}
+            <div class="card" data-task-id="{{ task.id }}">
+                <h5>{{ task.title }}</h5>
+                <p>{{ task.description }}</p>
+                {% if not task.completed %}
+                    <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button">Complete</a>
+                {% else %}
+                    <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button">Not Completed</a>
+                {% endif %}
+                    
+                <a href="{% url 'mytodo:task_detail' task.id %}" class="primary contrast" role="button">View</a>
+                <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button">Edit</a>
+                <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button">Trash</a>
+            </div>
+            {% endfor %}
+        </div>
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
+<hr />
+<section>
+<a href="{% url 'mytodo:task_create' %}" role="button" class="primary">Create a new task</a>
+</section>
+</main>
+{% endblock %}
