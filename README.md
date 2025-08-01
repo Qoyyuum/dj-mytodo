@@ -22,3 +22,11 @@ With `pip`
     pip install -e .  # Editable install
     pip install -r requirements.txt  # If provided
 
+Then the usual Django commands:
+
+    py manage.py createsuperuser
+    py manage.py makemigrations
+    py manage.py migrate
+    py manage.py runserver
+
+Enjoy!
