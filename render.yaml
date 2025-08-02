@@ -1,20 +1,20 @@
 databases:
-  - name: dj-mytodo-db
+  - name: djmytododb
     plan: free
-    databaseName: dj-mytodo-db
+    databaseName: djmytododb
     user: dj_mytodo_user
 
 services:
   - type: web
     plan: free
-    name: dj-mytodo
+    name: djmytodoapp
     runtime: python
     buildCommand: './build.sh'
     startCommand: 'python -m gunicorn mytodosite.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: dj-mytodo-db
+          name: djmytododb
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
