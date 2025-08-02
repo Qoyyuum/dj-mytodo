@@ -29,7 +29,8 @@
         {% if user.is_authenticated %}
             <p>Hello, {{ user.username }}! You are logged in.</p>
         {% else %}
-            <p>Please <a href="{% url 'mytodo:login' %}">log in</a> to manage your tasks.</p>
+            {% comment %} <p>Please <a href="{% url 'mytodo:login' %}">log in</a> to manage your tasks.</p> {% endcomment %}
+            <p>You're not logged in</p>
         {% endif %}
         {% endblock %}
     </div>
