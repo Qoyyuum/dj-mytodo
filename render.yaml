@@ -1,12 +1,14 @@
 databases:
   - name: djmytododb
     plan: free
+    region: singapore
     databaseName: djmytododb
     user: dj_mytodo_user
 
 services:
   - type: web
     plan: free
+    region: singapore
     name: djmytodoapp
     runtime: python
     buildCommand: './build.sh'
