@@ -20,9 +20,16 @@ a.delete {
     <br />
     <small>Updated at: {{ task.updated_at }}</small>
     <footer>
+        {% if not task.completed %}
+            <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button">Complete</a>
+        {% else %}
+            <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button">Not Completed</a>
+        {% endif %}
+            
+        <a href="{% url 'mytodo:task_detail' task.id %}" class="primary contrast" role="button">View</a>
         <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button">Edit</a>
         <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button">Trash</a>
-        <a href="{% url 'mytodo:task_list' %}" class="primary" role="button">Back to Task List</a>
+    </footer>
 </article>
 
 {% endblock %}
