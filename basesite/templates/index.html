@@ -40,10 +40,10 @@
                 {% if user.is_authenticated %}
                     <p>Hello, {{ user.username }}! You are logged in.</p>
                 {% else %}
-                    <p>Please <a href="{% url 'mytodo:login' %}">log in</a> to manage your tasks.</p>
+                    <p>Please <a href="{% url 'login' %}">log in</a> to manage your tasks.</p>
                 {% endif %}
                 <p>This is a simple application to manage your tasks.</p>
-                <p>Press <kbd>N</kbd> to create a <a href="{% url 'mytodo:task_create' %}">new task</a>.</p>
+                <p>Press <kbd>i</kbd> to create a <a href="{% url 'mytodo:task_create' %}">new task</a>.</p>
                 {% endblock %}
             </div>
         </main>
