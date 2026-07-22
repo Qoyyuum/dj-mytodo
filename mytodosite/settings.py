@@ -64,7 +64,7 @@ ROOT_URLCONF = "mytodosite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,7 +82,6 @@ WSGI_APPLICATION = "mytodosite.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 if RENDER_EXTERNAL_HOSTNAME:
     DATABASES = {
         "default": dj_database_url.config(
@@ -132,6 +131,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

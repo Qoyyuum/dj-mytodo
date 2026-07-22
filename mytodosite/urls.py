@@ -23,4 +23,5 @@ urlpatterns = [
     # Admin URL
     path("admin/", admin.site.urls),
     path("tasks/", include("mytodo.urls", namespace="mytodo")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
 {% block title %}Task Form{% endblock %}
 
@@ -10,6 +10,6 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to Save 💾</button>
 </form>
 {% endblock %}
