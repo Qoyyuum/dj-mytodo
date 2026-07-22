@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}My To-Do List{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'mytodo/css/pico.amber.min.css' %}">
+        <script src="https://kit.fontawesome.com/04cd2d8d2b.js" crossorigin="anonymous"></script>
         <style>
         {% block style %}
         {% endblock %}
@@ -18,19 +19,20 @@
                     <li><a href="{% url 'home' %}">My ToDo</a></li>
                 </ul>
                 <ul>
-                    <li><a href="{% url 'mytodo:task_list' %}" class="contrast">📃Tasks</a></li>
-                    <li><a href="{% url 'mytodo:task_create' %}" class="contrast"><button>✨Create Task</button></a></li>
+                    <li><a href="{% url 'mytodo:task_list' %}" class="contrast"><i class="fa-solid fa-list-check"></i> Tasks</a></li>
+                    <li><a href="{% url 'mytodo:task_create' %}" class="contrast"><button><i class="fa-regular fa-square-plus"></i> Create Task</button></a></li>
+                    <li><button id="help-button"><i class="fa-solid fa-life-ring"></i> Help</button></li>
                     {% if user.is_authenticated %}
                     <li>
                         <details class="dropdown">
-                            <summary>👤{{ user.username }}</summary>
+                            <summary><i class="fa-regular fa-user"></i> {{ user.username }}</summary>
                             <ul>
-                                <li><a href="{% url 'logout' %}"><button>Logout</button></a></li>
+                                <li><a href="{% url 'logout' %}"><button><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button></a></li>
                             </ul>
                         </details>
                     </li>
                     {% else %}
-                        <li><a href="{% url 'login' %}" class="contrast"><button class="secondary">Login</button></a></li>
+                        <li><a href="{% url 'login' %}" class="contrast"><button class="secondary"><i class="fa-regular fa-right-to-bracket"></i> Login</button></a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -43,10 +45,51 @@
                     <p>Please <a href="{% url 'login' %}">log in</a> to manage your tasks.</p>
                 {% endif %}
                 <p>This is a simple application to manage your tasks.</p>
-                <p>Press <kbd>i</kbd> to create a <a href="{% url 'mytodo:task_create' %}">new task</a>.</p>
                 {% endblock %}
             </div>
         </main>
+
+        <dialog id="shortcuts-dialog">
+            <article>
+                <header>
+                    <button aria-label="Close" rel="prev" class="close-button"></button>
+                    <p><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</p>
+                </header>
+            <ul>
+                <li><kbd>SHIFT</kbd> + <kbd>/</kbd> - Show keyboard shortcuts</li>
+                <li><kbd>g</kbd> then <kbd>n</kbd> - <a href="{% url 'mytodo:task_create' %}">New task</a></li>
+                <li><kbd>g</kbd> then <kbd>t</kbd> - <a href="{% url 'mytodo:task_list' %}">Task list</a></li>
+                <li><kbd>g</kbd> then <kbd>h</kbd> - <a href="{% url 'home' %}">Home</a></li>
+                <li><kbd>1</kbd>-<kbd>9</kbd> - Select task</li>
+                <li><kbd>↑</kbd>/<kbd>↓</kbd> or <kbd>j</kbd>/<kbd>k</kbd> - Navigate tasks</li>
+                <li><kbd>Enter</kbd> - View selected task</li>
+                <li><kbd>e</kbd> - Edit selected task</li>
+                <li><kbd>c</kbd> - Complete selected task</li>
+                <li><kbd>d</kbd>/<kbd>x</kbd> - Delete selected task</li>
+                <li><kbd>Esc</kbd> - Deselect / Cancel</li>
+            </ul>
+            </article>
+        </dialog>
+
+        <script>
+            // Handle help button click to open modal
+            document.getElementById('help-button').addEventListener('click', function() {
+                document.getElementById('shortcuts-dialog').showModal();
+            });
+
+            // Handle close button click
+            document.querySelector('.close-button').addEventListener('click', function() {
+                document.getElementById('shortcuts-dialog').close();
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('shortcuts-dialog').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    this.close();
+                }
+            });
+        </script>
+
         <script src="{% static 'mytodo/scripts/shortcuts.js' %}"></script>
     </body>
 </html>

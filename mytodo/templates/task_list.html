@@ -37,14 +37,13 @@ a.incomplete {
                 <p>{{ task.description }}</p>
                 <fieldset role="group">
                     {% if not task.completed %}
-                        <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button">Complete</a>
+                        <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button" data-tooltip="Complete task"><i class="fa-solid fa-circle-check"></i></a>
                     {% else %}
-                        <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button">Not Completed</a>
+                        <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button" data-tooltip="Mark as not completed"><i class="fa-solid fa-circle-xmark"></i></a>
                     {% endif %}
-                        
-                    <a href="{% url 'mytodo:task_detail' task.id %}" class="primary contrast" role="button">View</a>
-                    <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button">Edit</a>
-                    <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button">Trash</a>
+                    <a href="{% url 'mytodo:task_detail' task.id %}" class="contrast" role="button" data-tooltip="View task details"><i class="fa-regular fa-eye"></i></a>
+                    <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button" data-tooltip="Edit task"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button" data-tooltip="Delete task"><i class="fa-regular fa-trash-can"></i></a>
                 </fieldset>
             </div>
             {% endfor %}
@@ -54,7 +53,9 @@ a.incomplete {
 {% endif %}
 <hr />
 <section>
-<a href="{% url 'mytodo:task_create' %}" role="button" class="primary">Create a new task</a>
+<a href="{% url 'mytodo:task_create' %}" role="button" class="primary"><i class="fa-regular fa-square-plus"></i> Create a new task</a>
 </section>
 </main>
+
+<div id="shortcuts-indicator"><kbd>g</kbd> is pressed. Press the next key...</div>
 {% endblock %}
