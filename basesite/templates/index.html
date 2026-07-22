@@ -27,12 +27,17 @@
                         <details class="dropdown">
                             <summary><i class="fa-regular fa-user"></i> {{ user.username }}</summary>
                             <ul>
-                                <li><a href="{% url 'logout' %}"><button><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button></a></li>
+                                <li>
+                                    <form action="{% url 'logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                                    </form>
+                                </li>
                             </ul>
                         </details>
                     </li>
                     {% else %}
-                        <li><a href="{% url 'login' %}" class="contrast"><button class="secondary"><i class="fa-regular fa-right-to-bracket"></i> Login</button></a></li>
+                        <li><a href="{% url 'login' %}" class="contrast"><button class="secondary"><i class="fa-solid fa-right-to-bracket"></i> Login</button></a></li>
                     {% endif %}
                 </ul>
             </nav>
