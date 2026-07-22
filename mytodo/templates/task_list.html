@@ -1,14 +1,8 @@
 {% extends "index.html" %}
 
-{% block title %}Task List{% endblock %}
+{% block title %}{{tasks|length}} in your Task List{% endblock %}
 
 {% block style %}
-div.card {
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-}
 a.delete {
     background-color: #e53935; /* red */
     text-decoration: none;
@@ -24,28 +18,35 @@ a.incomplete {
     text-decoration: none;
     border-color: #f57f17; /* dark yellow */
 }
+a.view {
+    background-color: #2196f3; /* blue */
+    text-decoration: none;
+    border-color: #1565c0; /* dark blue */
+}
 {% endblock %}
 
 {% block content %}
 {% if tasks %}
-    <header>{{ tasks|length }} tasks found:</header>
+    <header>You have <strong>{{ tasks|length }}</strong> tasks in your list:</header>
     <main>
-        <div class="grid">
+        <div class="">
             {% for task in tasks %}
-            <div class="card" data-task-id="{{ task.id }}">
-                <h5>{{ task.title }}</h5>
-                <p>{{ task.description }}</p>
-                <fieldset role="group">
-                    {% if not task.completed %}
-                        <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button" data-tooltip="Complete task"><i class="fa-solid fa-circle-check"></i></a>
-                    {% else %}
-                        <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button" data-tooltip="Mark as not completed"><i class="fa-solid fa-circle-xmark"></i></a>
-                    {% endif %}
-                    <a href="{% url 'mytodo:task_detail' task.id %}" class="contrast" role="button" data-tooltip="View task details"><i class="fa-regular fa-eye"></i></a>
-                    <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button" data-tooltip="Edit task"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button" data-tooltip="Delete task"><i class="fa-regular fa-trash-can"></i></a>
-                </fieldset>
-            </div>
+            <article data-task-id="{{ task.id }}">
+                <header><h5>{{ task.title }}</h5></header>
+                <small>{{ task.description }}</small>
+                <footer>
+                    <fieldset role="group">
+                        {% if not task.completed %}
+                            <a href="{% url 'mytodo:task_complete' task.id %}" class="complete" role="button" data-tooltip="Complete task"><i class="fa-solid fa-circle-check"></i></a>
+                        {% else %}
+                            <a href="{% url 'mytodo:task_incomplete' task.id %}" class="incomplete" role="button" data-tooltip="Mark as not completed"><i class="fa-solid fa-circle-xmark"></i></a>
+                        {% endif %}
+                        <a href="{% url 'mytodo:task_detail' task.id %}" class="view contrast" role="button" data-tooltip="View task details"><i class="fa-regular fa-eye"></i></a>
+                        <a href="{% url 'mytodo:task_edit' task.id %}" class="secondary" role="button" data-tooltip="Edit task"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="{% url 'mytodo:task_delete' task.id %}" class="delete" role="button" data-tooltip="Delete task"><i class="fa-regular fa-trash-can"></i></a>
+                    </fieldset>
+                </footer>
+            </article>
             {% endfor %}
         </div>
 {% else %}

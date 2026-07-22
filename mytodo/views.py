@@ -10,13 +10,16 @@ class TaskListView(generic.ListView):
     context_object_name = "tasks"
 
     def get_queryset(self):
-        return Task.get_tasks(self)
+        return Task.objects.filter(user=self.request.user).order_by("-created_at")
 
 
 class TaskDetailView(generic.DetailView):
     model = Task
     template_name = "task_detail.html"
     context_object_name = "task"
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 
 class TaskCreateView(generic.CreateView):
@@ -26,6 +29,7 @@ class TaskCreateView(generic.CreateView):
     success_url = "/tasks/"
 
     def form_valid(self, form):
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 
@@ -39,14 +43,16 @@ class TaskUpdateView(generic.UpdateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 class TaskDeleteView(generic.DeleteView):
     model = Task
     template_name = "task_confirm_delete.html"
     success_url = "/tasks/"
 
-    def get_object(self, queryset=None):
-        return super().get_object(queryset=queryset)
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
 
 def task_complete(request, pk):
